@@ -60,6 +60,8 @@ def play_game():
             # Switch to the other player
             current_player = "O" if current_player == "X" else "X"
 
+    print("Thank you for playing Tic-Tac-Toe!")
+
 # Start the game
 if __name__ == "__main__":
     play_game()
