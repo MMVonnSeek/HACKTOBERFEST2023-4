@@ -6,16 +6,14 @@ def print_board():
     for i in range(0, 9, 3):
         print(" | ".join(board[i:i+3]))
 
-# Define a function to handle a player's turn
-def take_turn(player):
-    print(f"{player}'s turn.")
+# Define a function to get a valid player move
+def get_player_move(player):
     while True:
-        position = input("Choose a position from 1-9: ")
+        position = input(f"{player}'s turn. Choose a position from 1-9: ")
         if position.isdigit():
             position = int(position) - 1
             if 0 <= position < 9 and board[position] == "-":
-                board[position] = player
-                break
+                return position
             else:
                 print("Invalid position. Choose a different position.")
         else:
@@ -46,10 +44,11 @@ def play_game():
     game_over = False
 
     while not game_over:
-        take_turn(current_player)
+        position = get_player_move(current_player)
+        board[position] = current_player
         print_board()
+        
         game_result = check_game_over()
-
         if game_result == "win":
             print(f"{current_player} wins!")
             game_over = True
@@ -57,7 +56,6 @@ def play_game():
             print("It's a tie!")
             game_over = True
         else:
-            # Switch to the other player
             current_player = "O" if current_player == "X" else "X"
 
     print("Thank you for playing Tic-Tac-Toe!")
